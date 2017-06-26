@@ -3,5 +3,5 @@ project(ex4)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp EscapeRoomWrapper.cpp)
+set(SOURCE_FILES Enigma.cpp main.cpp)
 add_executable(ex4 ${SOURCE_FILES})
