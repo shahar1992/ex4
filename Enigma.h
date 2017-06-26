@@ -21,6 +21,7 @@ namespace escaperoom{
         string name;
         Difficulty difficulty;
         int numOfElements;
+        set<string> elements;
 
     public:
 
@@ -29,18 +30,27 @@ namespace escaperoom{
         // @param name : the name of the enigma.
         // @param difficulty : the difficulty of the enigma.
         // @param numOfElements : the number of elements in the enigma.
-        Enigma(const std::string& name, const Difficulty& difficulty, const int& numOfElements);
+        Enigma(const std::string& name, const Difficulty& difficulty,
+                       const int& numOfElements, const set<string>& elements);
+
+        // Constructs a new Enigma with the specified data.
+        //
+        // @param name : the name of the enigma.
+        // @param difficulty : the difficulty of the enigma.
+        // numOfElements : default 0
+        // elements: an empty set of elements
+        Enigma(const std::string& name, const Difficulty& difficulty);
 
 
         //copy constructor
         //
         //@param enigma : the enigma to be copied.
-        Enigma(const Enigma& enigma) = default;
+        Enigma(const Enigma& enigma);
 
         //assignment operator
         //
         //@param enigma : the enigma to be assigned.
-        Enigma& operator=(const Enigma& enigma) = default;
+        Enigma& operator=(const Enigma& enigma);
 
         // Comparison operators for Enigmas. enigmas are compared as described in
         // the exercise sheet.
@@ -77,6 +87,14 @@ namespace escaperoom{
         //Function returns the name of the enigma.
         //
         string getName() const;
+
+        // method for adding an element to "this" enigma
+        //@param element: the element to be added
+        void addElement(const string& element);
+
+        // method for removing an element from "this" enigma
+        //@param element: the element to be removed
+        void removeElement(const string& element);
 
 
     };

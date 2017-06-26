@@ -3,26 +3,37 @@
 
 using namespace mtm::escaperoom;
 
-//using std::set;
-//using std::string;
-// Constructs a new Enigma with the specified data.
-//
-// @param name : the name of the enigma.
-// @param difficulty : the difficulty of the enigma.
-// @param numOfElements : the number of elements in the enigma.
-Enigma::Enigma(const std::string& name, const Difficulty& difficulty,
-               const int& numOfElements):
-        name(name),difficulty(difficulty), numOfElements(numOfElements){
-}
-//copy constructor
-//
-//@param enigma : the enigma to be copied.
-//Enigma::Enigma(const Enigma& enigma) = default;
 
-//assignment operator
-//
-//@param enigma : the enigma to be assigned.
-//Enigma& Enigma::operator=(const Enigma& enigma) = default;
+Enigma::Enigma(const std::string& name, const Difficulty& difficulty,
+               const int& numOfElements, const set<string>& elements):
+        name(name),difficulty(difficulty), numOfElements(numOfElements),
+        elements(elements){
+    if(this->numOfElements!=this->elements.size()) {
+        throw EnigmaIllegalSizeParamException();
+    }
+}
+
+Enigma::Enigma(const std::string& name, const Difficulty& difficulty):
+        name(name),difficulty(difficulty),numOfElements(0),
+        elements(){
+}
+
+Enigma::Enigma(const Enigma& enigma):name(enigma.name),
+                                     difficulty(enigma.difficulty),
+                                     numOfElements(enigma.numOfElements),
+                                     elements(enigma.elements){
+}
+
+
+Enigma& Enigma::operator=(const Enigma& enigma){
+    if(this==&enigma){
+        return *this;
+    }
+    this->name=enigma.name; ////////////possiably a memory leak
+    this->numOfElements=enigma.numOfElements;
+    this->difficulty=enigma.difficulty;
+    this->elements=enigma.elements;////////////possiably a memory leak
+}
 
 // Comparison operators for Enigmas. enigmas are compared as described in
 // the exercise sheet.
@@ -68,12 +79,21 @@ Difficulty Enigma::getDifficulty() const {
     return this->difficulty;
 }
 
-// Prints the data of the Enigma in the following format:
-//
-//     "<name> (<Difficulty>) <number of items>"
-//
-// @param output : the output stream to which the data is printed.
-// @param enigma : the enigma whose data is printed.
+void Enigma::addElement(const string& element){
+    this->elements.insert(element);
+}
+
+void Enigma::removeElement(const string& element){
+    if(this->elements.empty()){
+        throw EnigmaNoElementsException();
+    }
+    int set_original_size=this->elements.size();
+    this->elements.erase(element);
+    if(this->elements.size()==set_original_size){
+        throw EnigmaElementNotFoundException();
+    }
+}
+
 std::ostream& mtm::escaperoom::operator<<(std::ostream& output,
                                           const Enigma& enigma) {
      return output << enigma.name << "(" << enigma.difficulty << ")" <<
@@ -81,6 +101,7 @@ std::ostream& mtm::escaperoom::operator<<(std::ostream& output,
 }
 
 //~Enigma() = default;
+
 
 
 std::ostream& operator<<(std::ostream& output, const Enigma& enigma);
