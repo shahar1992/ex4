@@ -70,7 +70,7 @@ EscapeRoomWrapper::~EscapeRoomWrapper() {
     escapeRoomDestroy(this->escape_room);
 }
 
-friend std::ostream& operator<<(std::ostream& output,
+std::ostream& operator<<(std::ostream& output,
                                 const EscapeRoomWrapper& room) {
     return output << room.getName() << '(' << room.getMaxTime() << '/' <<
                   room.level() << '/' << room.getMaxParticipants() << ')' ;
