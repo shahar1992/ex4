@@ -3,7 +3,9 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 #include "EscapeRoom.h"
+#include "Enigma.h"
 
 
 namespace mtm{
@@ -12,6 +14,7 @@ namespace escaperoom {
     class EscapeRoomWrapper{
 
         EscapeRoom escape_room;
+        std::vector<Enigma> enigmas;
     public:
         // Constructs a new Escape Room with the specified data.
         //
@@ -95,6 +98,12 @@ namespace escaperoom {
         //Function returns the number of participants allowed in the EscapeRoom.
         //
         int getMaxParticipants() const;
+
+        void addEnigma(const Enigma& enigma);
+
+        void removeEnigma(const Enigma& enigma);
+
+        Enigma getHardestEnigma() const;
 
     };
 
