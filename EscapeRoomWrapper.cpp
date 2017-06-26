@@ -109,7 +109,7 @@ void EscapeRoomWrapper::removeEnigma(const Enigma& enigma){
     throw  EscapeRoomEnigmaNotFoundException();
 }
 
-Enigma EscapeRoomWrapper::getHardestEnigma() const{
+Enigma EscapeRoomWrapper::getHardestEnigma(){
     if(enigmas.empty()){
         throw EscapeRoomNoEnigmasException();
     }
@@ -121,5 +121,9 @@ Enigma EscapeRoomWrapper::getHardestEnigma() const{
         }
     }
     return hardest;
+}
+
+std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() const{
+    return this->enigmas;
 }
 
