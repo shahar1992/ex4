@@ -4,7 +4,7 @@ project(ex4)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        main.cpp
         EscapeRoomWrapper.cpp
-        EscapeRoom.c )
+        EscapeRoom.c
+        tests/EscapeRoomWrapper_test.cpp)
 add_executable(ex4 ${SOURCE_FILES})
