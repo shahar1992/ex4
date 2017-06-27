@@ -5,6 +5,17 @@ set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
         Enigma.cpp
+        EscapeRoomWrapper.cpp
+        EscapeRoomWrapper.h
+        Enigma.h
+        #ScaryRoom.cpp
+        #ScaryRoom.h
+        #KidsRoom.cpp
+        #KidsRoom.h
+        #Company.h
+        #Company.cpp
+        EscapeRoom.h
+        EscapeRoom.c
         mtmtest.h
-        tests/Enigma_tests.cpp)
+        tests/EscapeRoomWrapper_test.cpp)
 add_executable(ex4 ${SOURCE_FILES})
