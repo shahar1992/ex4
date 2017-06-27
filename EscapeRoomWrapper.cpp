@@ -1,5 +1,6 @@
 #include "EscapeRoomWrapper.h"
 #include "Exceptions.h"
+
 using namespace mtm::escaperoom;
 
 EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime,
