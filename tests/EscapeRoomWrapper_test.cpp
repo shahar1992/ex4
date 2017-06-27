@@ -5,7 +5,7 @@
 
 using namespace mtm::escaperoom;
 using std::set;
-
+using std::cout;
 void testEscapeRoomWrapperConstructor() {
 
     ASSERT_NO_THROW(EscapeRoomWrapper((char *)"shahar",1));
@@ -72,6 +72,7 @@ void testEscapeRoomWrapperEnigmaHandle(){
     ASSERT_THROWS(EscapeRoomNoEnigmasException,room1.getHardestEnigma());
     //TEST empty enigma vector
     room1.addEnigma(riddle1);
+    cout << room1;
     ASSERT_NO_THROW(room1.getHardestEnigma());
     assert(room1.getHardestEnigma()==riddle1);
     Enigma riddle2=Enigma("riddle2",EASY_ENIGMA,2,elements);
