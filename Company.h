@@ -144,9 +144,13 @@ namespace mtm{
             friend std::ostream& operator<<(std::ostream& output, const Company& company);
 
             //Destructor
-            ~Company();
+            ~Company() = default;
 
             EscapeRoomWrapper& getRoom(const EscapeRoomWrapper& room);
+
+            string getName() const;
+
+            string getNumber() const;
         };
 
         std::ostream& operator<<(std::ostream& output, const Company& company);

@@ -1,7 +1,10 @@
-#include "Company.h";
+#include "Company.h"
+#include <typeinfo>
 
 using namespace mtm::escaperoom;
 using std::vector;
+using std::ostream;
+using std::endl;
 
 Company::Company(string name, string phoneNumber):name(name),
                                                   number(phoneNumber){}
@@ -60,7 +63,8 @@ set<EscapeRoomWrapper*> Company::getAllRooms() const{
 }
 
 void Company::removeRoom(const EscapeRoomWrapper& room){
-    set<EscapeRoomWrapper*>::iterator i = this->escape_rooms.find(&room);
+    EscapeRoomWrapper room_to_find = room;
+    set<EscapeRoomWrapper*>::iterator i =this->escape_rooms.find(&room_to_find);
     if(i == this->escape_rooms.end()){
         throw CompanyRoomNotFoundException();
     }
@@ -68,7 +72,7 @@ void Company::removeRoom(const EscapeRoomWrapper& room){
 }
 
 void Company::addEnigma(const EscapeRoomWrapper& room, const Enigma& enigma){
-    this->getRoom(room).addEnigma(room);
+    this->getRoom(room).addEnigma(enigma);
 }
 
 void Company::removeEnigma(const EscapeRoomWrapper& room, const Enigma& enigma){
@@ -111,7 +115,7 @@ void Company::removeItem(const EscapeRoomWrapper& room, const Enigma& enigma,
 }
 
 set<EscapeRoomWrapper*> Company::getAllRoomsByType(RoomType type) const{
-    set<type*> temp_set;
+    set<EscapeRoomWrapper*> temp_set;
     for(set<EscapeRoomWrapper*>::iterator i = this->escape_rooms.begin() ;
             i != this->escape_rooms.end() ; ++i){
         if(typeid(*(*i)) == typeid(type)){
@@ -121,10 +125,10 @@ set<EscapeRoomWrapper*> Company::getAllRoomsByType(RoomType type) const{
     return temp_set;
 }
 
-EscapeRoomWrapper* getRoomByName(const string& name) const{
+EscapeRoomWrapper* Company::getRoomByName(const string& name) const{
     for(set<EscapeRoomWrapper*>::iterator i = this->escape_rooms.begin() ;
         i != this->escape_rooms.end() ; ++i){
-        if((*(*i))->getName() == name){
+        if((*i)->getName() == name){
             return *i;
         }
     }
@@ -132,10 +136,29 @@ EscapeRoomWrapper* getRoomByName(const string& name) const{
 }
 
 
+std::ostream& mtm::escaperoom::operator<<(std::ostream& output, const Company& company){
+    output << company.getName() << ":" << company.getNumber() << endl;
+    for(set<EscapeRoomWrapper*>::iterator i = company.getAllRooms().begin() ;
+            i != company.getAllRooms().end() ; ++i){
+        output << *i << endl;
+    }
+    return output;
+}
+
+
 EscapeRoomWrapper& Company::getRoom(const EscapeRoomWrapper& room){
-    set<EscapeRoomWrapper*>::iterator i = this->escape_rooms.find(&room);
+    EscapeRoomWrapper room_to_find = room;
+    set<EscapeRoomWrapper*>::iterator i =this->escape_rooms.find(&room_to_find);
     if(i == this->escape_rooms.end()){
         throw CompanyRoomNotFoundException();
     }
     return *(*i);
+}
+
+string Company::getName() const{
+    return this->name;
+}
+
+string Company::getNumber() const {
+    return this->number;
 }
