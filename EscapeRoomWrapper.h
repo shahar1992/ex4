@@ -7,13 +7,17 @@
 #include "EscapeRoom.h"
 #include "Enigma.h"
 
+#define DEFAULT_ESCAPE_TIME 60
+#define DEFAULT_MAX_PARTICIPANTS 6
+
+using std::vector;
 
 namespace mtm{
 namespace escaperoom {
 
     class EscapeRoomWrapper{
         EscapeRoom escape_room;
-        std::vector<Enigma> enigmas;
+        vector<Enigma> enigmas;
     public:
         // Constructs a new Escape Room with the specified data.
         //
@@ -104,7 +108,7 @@ namespace escaperoom {
 
         Enigma getHardestEnigma() const;
 
-        std::vector<Enigma>& getAllEnigmas() const;
+        vector<Enigma>& getAllEnigmas();
 
         };
 

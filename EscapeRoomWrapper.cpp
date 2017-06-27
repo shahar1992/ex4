@@ -1,8 +1,6 @@
 #include "EscapeRoomWrapper.h"
 #include "Exceptions.h"
 using namespace mtm::escaperoom;
-using std::vector;
-using std::string;
 
 EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime,
                                      const int& level,
@@ -125,7 +123,6 @@ Enigma EscapeRoomWrapper::getHardestEnigma() const {
 }
 
 std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() const{
-    vector<Enigma> temp = this->enigmas;
-    return temp;
+    return this->enigmas;
 }
 
