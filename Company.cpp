@@ -1,4 +1,4 @@
-#include "Company.h"
+#include "Company.h";
 
 using namespace mtm::escaperoom;
 using std::vector;
@@ -68,9 +68,74 @@ void Company::removeRoom(const EscapeRoomWrapper& room){
 }
 
 void Company::addEnigma(const EscapeRoomWrapper& room, const Enigma& enigma){
+    this->getRoom(room).addEnigma(room);
+}
+
+void Company::removeEnigma(const EscapeRoomWrapper& room, const Enigma& enigma){
+    try{
+        this->getRoom(room).removeEnigma(enigma);
+    }
+    catch (EscapeRoomNoEnigmasException& e){
+        throw CompanyRoomHasNoEnigmasException();
+    }
+    catch (EscapeRoomEnigmaNotFoundException& e){
+        throw CompanyRoomEnigmaNotFoundException();
+    }
+}
+
+
+void Company::addItem(const EscapeRoomWrapper& room, const Enigma& enigma,
+             const string& element){
+    try {
+        this->getRoom(room).getEnigma(enigma).addElement(element);
+    }
+    catch (EscapeRoomException& e){
+        throw CompanyRoomEnigmaNotFoundException();
+    }
+}
+
+void Company::removeItem(const EscapeRoomWrapper& room, const Enigma& enigma,
+                const string& element){
+    try{
+        this->getRoom(room).getEnigma(enigma).removeElement(element);
+    }
+    catch(EnigmaNoElementsException& e){
+        throw CompanyRoomEnigmaHasNoElementsException();
+    }
+    catch(EnigmaElementNotFoundException& e){
+        throw CompanyRoomEnigmaElementNotFoundException();
+    }
+    catch (EscapeRoomEnigmaNotFoundException& e){
+        throw CompanyRoomEnigmaNotFoundException();
+    }
+}
+
+set<EscapeRoomWrapper*> Company::getAllRoomsByType(RoomType type) const{
+    set<type*> temp_set;
+    for(set<EscapeRoomWrapper*>::iterator i = this->escape_rooms.begin() ;
+            i != this->escape_rooms.end() ; ++i){
+        if(typeid(*(*i)) == typeid(type)){
+            temp_set.insert(*i);
+        }
+    }
+    return temp_set;
+}
+
+EscapeRoomWrapper* getRoomByName(const string& name) const{
+    for(set<EscapeRoomWrapper*>::iterator i = this->escape_rooms.begin() ;
+        i != this->escape_rooms.end() ; ++i){
+        if((*(*i))->getName() == name){
+            return *i;
+        }
+    }
+    throw CompanyRoomNotFoundException();
+}
+
+
+EscapeRoomWrapper& Company::getRoom(const EscapeRoomWrapper& room){
     set<EscapeRoomWrapper*>::iterator i = this->escape_rooms.find(&room);
     if(i == this->escape_rooms.end()){
         throw CompanyRoomNotFoundException();
     }
-    this->escape_rooms(i).insert(enigma);
+    return *(*i);
 }

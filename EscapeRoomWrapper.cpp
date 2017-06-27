@@ -129,3 +129,17 @@ std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() {
     return this->enigmas;
 }
 
+Enigma& EscapeRoomWrapper::getEnigma(const Enigma& enigma){
+    if(this->enigmas.empty()){
+        throw EscapeRoomNoEnigmasException();
+    }
+    for(vector<Enigma>::iterator i = this->enigmas.begin() ;
+        i != this->enigmas.end() ; ++i){
+        if(*i == enigma){
+            return *i;
+        }
+    }
+    throw EscapeRoomEnigmaNotFoundException();
+}
+
+

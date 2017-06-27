@@ -110,6 +110,8 @@ namespace escaperoom {
 
         vector<Enigma>& getAllEnigmas();
 
+        Enigma& getEnigma(const Enigma& enigma);
+
         };
 
     std::ostream& operator<<(std::ostream& output,
