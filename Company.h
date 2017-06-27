@@ -147,6 +147,10 @@ namespace mtm{
             ~Company();
 
             EscapeRoomWrapper& getRoom(const EscapeRoomWrapper& room);
+
+            string getName() const;
+
+            string getNumber() const;
         };
 
         std::ostream& operator<<(std::ostream& output, const Company& company);

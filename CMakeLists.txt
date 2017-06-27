@@ -8,12 +8,12 @@ set(SOURCE_FILES
         EscapeRoomWrapper.cpp
         EscapeRoomWrapper.h
         Enigma.h
-        #ScaryRoom.cpp
-        #ScaryRoom.h
-        #KidsRoom.cpp
-        #KidsRoom.h
-        #Company.h
-        #Company.cpp
+        ScaryRoom.cpp
+        ScaryRoom.h
+        KidsRoom.cpp
+        KidsRoom.h
+        Company.h
+        Company.cpp
         EscapeRoom.h
         EscapeRoom.c
         mtmtest.h
