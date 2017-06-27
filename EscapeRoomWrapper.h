@@ -12,7 +12,6 @@ namespace mtm{
 namespace escaperoom {
 
     class EscapeRoomWrapper{
-
         EscapeRoom escape_room;
         std::vector<Enigma> enigmas;
     public:

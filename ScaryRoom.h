@@ -1,6 +1,7 @@
 #ifndef EX4_SCARYROOM_H
 #define EX4_SCARYROOM_H
 
+#include <string>
 #include "EscapeRoomWrapper.h"
 
 
@@ -40,7 +41,7 @@ namespace mtm{
              */
             void incNumberOfScaryEnigmas();
 
-            int getAgeLimit();
+            int getAgeLimit() const;
 
             /**
              * Prints the data of the Room in the following format:
