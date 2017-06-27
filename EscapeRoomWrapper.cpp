@@ -20,7 +20,7 @@ EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& level):
 
 EscapeRoomWrapper::EscapeRoomWrapper(const EscapeRoomWrapper& room):
     escape_room(escapeRoomCopy(room.escape_room)) {
-    if(!escape_room) {
+    if(!this->escape_room) {
         throw EscapeRoomMemoryProblemException();
     }
 }
@@ -93,28 +93,28 @@ int EscapeRoomWrapper::getMaxParticipants() const{
 }
 
 void EscapeRoomWrapper::addEnigma(const Enigma& enigma){
-    enigmas.push_back(enigma);
+    this->enigmas.push_back(enigma);
 }
 
 void EscapeRoomWrapper::removeEnigma(const Enigma& enigma){
-    if(enigmas.empty()){
+    if(this->enigmas.empty()){
         throw EscapeRoomNoEnigmasException();
     }
-    for(std::vector<Enigma>::iterator i = enigmas.begin() ;
-        i != enigmas.end() ; ++i){
+    for(std::vector<Enigma>::iterator i = this->enigmas.begin() ;
+        i != this->enigmas.end() ; ++i){
         if(*i == enigma){
-            enigmas.erase(i);
+            this->enigmas.erase(i);
         }
     }
     throw  EscapeRoomEnigmaNotFoundException();
 }
 
 Enigma EscapeRoomWrapper::getHardestEnigma() const {
-    if(enigmas.empty()){
+    if(this->enigmas.empty()){
         throw EscapeRoomNoEnigmasException();
     }
-    std::vector<Enigma>::const_iterator hardest = enigmas.begin();
-    for( std::vector<Enigma>::const_iterator i; i != enigmas.end() ; ++i){
+    std::vector<Enigma>::const_iterator hardest = this->enigmas.begin();
+    for( std::vector<Enigma>::const_iterator i; i != this->enigmas.end() ; ++i){
         if(*i > *hardest){
             hardest = i;
         }
