@@ -16,7 +16,6 @@ namespace mtm{
 namespace escaperoom {
 
     class EscapeRoomWrapper{
-
         EscapeRoom escape_room;
         vector<Enigma> enigmas;
     public:
@@ -109,7 +108,7 @@ namespace escaperoom {
 
         Enigma getHardestEnigma() const;
 
-        vector<Enigma>& getAllEnigmas();
+        vector<Enigma>& getAllEnigmas() const;
 
         };
 

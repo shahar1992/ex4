@@ -1,10 +1,12 @@
 #ifndef EX4_KIDSROOM_H
 #define EX4_KIDSROOM_H
 
+#include <string>
 #include "EscapeRoomWrapper.h"
+
 namespace mtm{
     namespace escaperoom {
-        class KidsRoom : EscapeRoomWrapper{
+        class KidsRoom : public EscapeRoomWrapper{
             int age_limit;
 
         public:
@@ -13,7 +15,7 @@ namespace mtm{
 
             void setNewAgeLimit(const int& limit);
 
-            int getAgeLimit();
+            int getAgeLimit() const;
 
             /**
              * Prints the data of the Room in the following format:
