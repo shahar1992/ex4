@@ -8,8 +8,8 @@ set(SOURCE_FILES
         EscapeRoomWrapper.cpp
         EscapeRoomWrapper.h
         Enigma.h
-        #ScaryRoom.cpp
-        #ScaryRoom.h
+        ScaryRoom.cpp
+        ScaryRoom.h
         #KidsRoom.cpp
         #KidsRoom.h
         #Company.h
@@ -17,5 +17,5 @@ set(SOURCE_FILES
         EscapeRoom.h
         EscapeRoom.c
         mtmtest.h
-        tests/EscapeRoomWrapper_test.cpp)
+        tests/ScaryRoom_tests.cpp)
 add_executable(ex4 ${SOURCE_FILES})
