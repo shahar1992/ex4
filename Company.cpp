@@ -60,8 +60,7 @@ set<EscapeRoomWrapper*> Company::getAllRooms() const{
 }
 
 void Company::removeRoom(const EscapeRoomWrapper& room){
-    EscapeRoomWrapper room_to_find = room;
-    set<EscapeRoomWrapper*>::iterator i =this->escape_rooms.find(&room_to_find);
+    set<EscapeRoomWrapper*>::iterator i = this->escape_rooms.find(&room);
     if(i == this->escape_rooms.end()){
         throw CompanyRoomNotFoundException();
     }
@@ -69,7 +68,9 @@ void Company::removeRoom(const EscapeRoomWrapper& room){
 }
 
 void Company::addEnigma(const EscapeRoomWrapper& room, const Enigma& enigma){
-    EscapeRoomWrapper room_to_find = room;
-    set<EscapeRoomWrapper*>::iterator i =this->escape_rooms.find(&room_to_find);
-
+    set<EscapeRoomWrapper*>::iterator i = this->escape_rooms.find(&room);
+    if(i == this->escape_rooms.end()){
+        throw CompanyRoomNotFoundException();
+    }
+    this->escape_rooms(i).insert(enigma);
 }
