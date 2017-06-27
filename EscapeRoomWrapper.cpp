@@ -104,6 +104,7 @@ void EscapeRoomWrapper::removeEnigma(const Enigma& enigma){
         i != this->enigmas.end() ; ++i){
         if(*i == enigma){
             this->enigmas.erase(i);
+            return;
         }
     }
     throw  EscapeRoomEnigmaNotFoundException();
@@ -113,17 +114,18 @@ Enigma EscapeRoomWrapper::getHardestEnigma() const {
     if(this->enigmas.empty()){
         throw EscapeRoomNoEnigmasException();
     }
-    std::vector<Enigma>::const_iterator hardest = this->enigmas.begin();
-    for( std::vector<Enigma>::const_iterator i; i != this->enigmas.end() ; ++i){
-        if(*i > *hardest){
-            hardest = i;
+    Enigma hardest = *this->enigmas.begin();
+    for( vector<Enigma>::const_iterator i=this->enigmas.begin()
+            ; i != this->enigmas.end() ; ++i){
+        if(*i > hardest){
+            hardest = *i;
         }
     }
-    return *hardest;
+    //
+    return hardest;
 }
 
-std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() const{
-    vector<Enigma> temp = this->enigmas;
-    return temp;
+std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() {
+    return this->enigmas;
 }
 
