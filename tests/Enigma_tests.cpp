@@ -95,6 +95,7 @@ void testEnigmaRemoveElement(){
     elements1.insert("Amir");elements1.insert("Shahar");
     Enigma mystery1=Enigma("mystery1",EASY_ENIGMA,2,elements1);
     ASSERT_THROWS(EnigmaElementNotFoundException,mystery1.removeElement("mtm"));
+    elements1.erase("Amir");
     ASSERT_NO_THROW(mystery1.removeElement("Amir"));
     ASSERT_NO_THROW(mystery1.removeElement("Shahar"));
     ASSERT_THROWS(EnigmaNoElementsException,mystery1.removeElement("etc"));

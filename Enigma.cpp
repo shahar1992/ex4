@@ -32,6 +32,7 @@ Enigma& Enigma::operator=(const Enigma& enigma){
     this->numOfElements=enigma.numOfElements;
     this->difficulty=enigma.difficulty;
     this->elements=enigma.elements;////////////possiably a memory leak
+    return *this;
 }
 /**---------------------------------------------------------------------------*/
 bool Enigma::operator==(const Enigma& enigma) const {
