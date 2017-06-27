@@ -122,8 +122,9 @@ Enigma EscapeRoomWrapper::getHardestEnigma() const {
     return *hardest;
 }
 
-std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() const{
-    vector<Enigma> temp = this->enigmas;
-    return temp;
+std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas(){
+    return this->enigmas;
 }
+
+
 

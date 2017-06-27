@@ -56,8 +56,7 @@ void Company::createKidsRoom(char* name,const int& escapeTime, const int& level,
 }
 
 set<EscapeRoomWrapper*> Company::getAllRooms() const{
-    set<EscapeRoomWrapper*> temp = this->escape_rooms;
-    return temp;
+    return this->escape_rooms;
 }
 
 void Company::removeRoom(const EscapeRoomWrapper& room){
@@ -66,7 +65,11 @@ void Company::removeRoom(const EscapeRoomWrapper& room){
     if(i == this->escape_rooms.end()){
         throw CompanyRoomNotFoundException();
     }
-
+    this->escape_rooms.erase(i);
 }
 
-void addEnigma(const EscapeRoomWrapper& room, const Enigma& enigma);
+void Company::addEnigma(const EscapeRoomWrapper& room, const Enigma& enigma){
+    EscapeRoomWrapper room_to_find = room;
+    set<EscapeRoomWrapper*>::iterator i =this->escape_rooms.find(&room_to_find);
+
+}

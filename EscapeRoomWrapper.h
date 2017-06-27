@@ -108,7 +108,7 @@ namespace escaperoom {
 
         Enigma getHardestEnigma() const;
 
-        vector<Enigma>& getAllEnigmas() const;
+        vector<Enigma>& getAllEnigmas();
 
         };
 
