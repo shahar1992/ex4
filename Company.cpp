@@ -62,6 +62,6 @@ set<EscapeRoomWrapper*> Company::getAllRooms() const{
 
 void Company::removeRoom(const EscapeRoomWrapper& room){
     EscapeRoomWrapper room_to_find = room;
-    set::iterator i = this->escape_rooms.find(&room_to_find);
+    set<EscapeRoomWrapper*>::iterator i =this->escape_rooms.find(&room_to_find);
 }
 
