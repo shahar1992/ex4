@@ -92,3 +92,38 @@ int EscapeRoomWrapper::getMaxTime() const{
 int EscapeRoomWrapper::getMaxParticipants() const{
     return roomGetMaxParticipants(this->escape_room);
 }
+
+void EscapeRoomWrapper::addEnigma(const Enigma& enigma){
+    enigmas.push_back(enigma);
+}
+
+void EscapeRoomWrapper::removeEnigma(const Enigma& enigma){
+    if(enigmas.empty()){
+        throw EscapeRoomNoEnigmasException();
+    }
+    for(std::vector<Enigma>::iterator i = enigmas.begin() ;
+        i != enigmas.end() ; ++i){
+        if(*i == enigma){
+            enigmas.erase(i);
+        }
+    }
+    throw  EscapeRoomEnigmaNotFoundException();
+}
+
+Enigma EscapeRoomWrapper::getHardestEnigma() const {
+    if(enigmas.empty()){
+        throw EscapeRoomNoEnigmasException();
+    }
+    std::vector<Enigma>::const_iterator hardest = enigmas.begin();
+    for( std::vector<Enigma>::const_iterator i; i != enigmas.end() ; ++i){
+        if(*i > *hardest){
+            hardest = i;
+        }
+    }
+    return *hardest;
+}
+
+std::vector<Enigma>& EscapeRoomWrapper::getAllEnigmas() const{
+    return this->enigmas;
+}
+
