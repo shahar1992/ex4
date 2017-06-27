@@ -101,6 +101,13 @@ void testEnigmaRemoveElement(){
     ASSERT_THROWS(EnigmaNoElementsException,mystery1.removeElement("etc"));
 }
 
+void testEnigmaOutputOperator(){
+    set<string> elements1;
+    elements1.insert("Amir");elements1.insert("Shahar");
+    Enigma mystery1=Enigma("mystery1",EASY_ENIGMA,2,elements1);
+    cout<<mystery1<<endl;
+}
+
 int main() {
     RUN_TEST(testEnigmaCreate);
     RUN_TEST(testEnigmaCpyAndAssignment);
@@ -111,5 +118,6 @@ int main() {
     RUN_TEST(testEnigmaGetName);
     //RUN_TEST(testEnigmaAddElement);
     RUN_TEST(testEnigmaRemoveElement);
+    RUN_TEST(testEnigmaOutputOperator);
 
 }

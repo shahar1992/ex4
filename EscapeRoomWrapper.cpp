@@ -5,24 +5,26 @@ using namespace mtm::escaperoom;
 EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& escapeTime,
                                      const int& level,
                                      const int& maxParticipants):
-        escape_room(escapeRoomCreate(name,escapeTime,maxParticipants,level)){
+        escape_room(escapeRoomCreate(name,escapeTime,maxParticipants,level)),
+        enigmas(){
     if(!escape_room){
         throw EscapeRoomMemoryProblemException();
     }
 }
 
 EscapeRoomWrapper::EscapeRoomWrapper(char* name, const int& level):
-    escape_room(escapeRoomCreate(name,60,6,level)) {
+    escape_room(escapeRoomCreate(name,60,6,level)),enigmas() {
     if(!escape_room) {
         throw EscapeRoomMemoryProblemException();
     }
 }
 
 EscapeRoomWrapper::EscapeRoomWrapper(const EscapeRoomWrapper& room):
-    escape_room(escapeRoomCopy(room.escape_room)) {
+    escape_room(escapeRoomCopy(room.escape_room)),enigmas(room.enigmas) {
     if(!this->escape_room) {
         throw EscapeRoomMemoryProblemException();
     }
+
 }
 
 EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room){
@@ -35,6 +37,7 @@ EscapeRoomWrapper& EscapeRoomWrapper::operator=(const EscapeRoomWrapper& room){
     }
     escapeRoomDestroy(this->escape_room);
     this->escape_room = escape_room;
+    this->enigmas=room.enigmas;
     return *this;
 }
 
@@ -70,10 +73,10 @@ EscapeRoomWrapper::~EscapeRoomWrapper() {
     escapeRoomDestroy(this->escape_room);
 }
 
-std::ostream& operator<<(std::ostream& output,
+std::ostream& mtm::escaperoom::operator<<(std::ostream& output,
                                 const EscapeRoomWrapper& room) {
-    return output << room.getName() << '(' << room.getMaxTime() << '/' <<
-                  room.level() << '/' << room.getMaxParticipants() << ')' ;
+    return output << room.getName() << "(" << room.getMaxTime() << "/" <<
+                  room.level() << "/" << room.getMaxParticipants() << ")" ;
 }
 
 std::string EscapeRoomWrapper::getName() const{
