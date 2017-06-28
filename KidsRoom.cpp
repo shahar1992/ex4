@@ -20,7 +20,7 @@ int KidsRoom::getAgeLimit() const{
     return this->age_limit;
 }
 
-std::ostream& operator<<(std::ostream& output, const KidsRoom& room){
+std::ostream& mtm::escaperoom::operator<<(std::ostream& output, const KidsRoom& room){
     return output << room.getName() << '(' << room.getMaxTime() << '/' <<
                  room.level() << '/' << room.getMaxParticipants() << '/' <<
                  room.getAgeLimit() << ')';

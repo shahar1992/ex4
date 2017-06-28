@@ -7,7 +7,9 @@ ScaryRoom::ScaryRoom(char* name, const int& escapeTime, const int& level,
           const int& maxParticipants, const int& ageLimit,
           const int& numOfScaryEnigmas) : EscapeRoomWrapper::EscapeRoomWrapper(
             name,escapeTime,level,maxParticipants), age_limit(ageLimit),
-            num_of_scary_enigmas(numOfScaryEnigmas){}
+            num_of_scary_enigmas(numOfScaryEnigmas){
+
+}
 
 void ScaryRoom::setNewAgeLimit(const int& limit){
     if(limit < 0){

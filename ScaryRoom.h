@@ -54,7 +54,7 @@ namespace mtm{
             friend std::ostream& operator<<(std::ostream& output,
                                             const ScaryRoom& room);
 
-            ~ScaryRoom();
+            ~ScaryRoom()= default;
         };
 
 
