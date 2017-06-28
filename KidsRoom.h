@@ -27,6 +27,8 @@ namespace mtm{
              */
             friend std::ostream& operator<<(std::ostream& output,
                                             const KidsRoom& room);
+
+            ~KidsRoom() override;
         };
 
         std::ostream& operator<<(std::ostream& output,

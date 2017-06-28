@@ -16,8 +16,9 @@ namespace mtm{
 namespace escaperoom {
 
     class EscapeRoomWrapper{
-        EscapeRoom escape_room;
         vector<Enigma> enigmas;
+    protected:
+        EscapeRoom escape_room;
     public:
         // Constructs a new Escape Room with the specified data.
         //
@@ -75,7 +76,7 @@ namespace escaperoom {
         void rate(const int& newRate);
 
         // Destructor for EscapeRoomWrapper
-        ~EscapeRoomWrapper();
+        virtual ~EscapeRoomWrapper();
 
         // Prints the data of the Room in the following format:
         //
@@ -112,7 +113,7 @@ namespace escaperoom {
 
         Enigma& getEnigma(const Enigma& enigma);
 
-        };
+    };
 
     std::ostream& operator<<(std::ostream& output,
                              const EscapeRoomWrapper& room);
