@@ -10,10 +10,10 @@ set(SOURCE_FILES
         Enigma.h
         ScaryRoom.cpp
         ScaryRoom.h
-        #KidsRoom.cpp
-        #KidsRoom.h
-        #Company.h
-        #Company.cpp
+        KidsRoom.cpp
+        KidsRoom.h
+        Company.h
+        Company.cpp
         EscapeRoom.h
         EscapeRoom.c
         mtmtest.h
