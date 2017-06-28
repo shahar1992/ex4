@@ -29,4 +29,8 @@ std::ostream& mtm::escaperoom::operator<<(std::ostream& output, const ScaryRoom&
                   room.level() << '/' << room.getMaxParticipants() << '/' <<
                   room.getAgeLimit() << ')';
 }
+//
+//ScaryRoom::~ScaryRoom() {
+//
+//}
 

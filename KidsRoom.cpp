@@ -25,3 +25,7 @@ std::ostream& operator<<(std::ostream& output, const KidsRoom& room){
                  room.level() << '/' << room.getMaxParticipants() << '/' <<
                  room.getAgeLimit() << ')';
 }
+
+//KidsRoom::~KidsRoom() override{
+//    this.
+//}
