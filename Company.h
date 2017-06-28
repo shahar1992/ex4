@@ -25,6 +25,7 @@ namespace mtm{
             string name;
             string number;
             set<EscapeRoomWrapper*> escape_rooms;
+
         public:
 
             //// Constructs a new Company with the specified data.
@@ -146,11 +147,12 @@ namespace mtm{
             //Destructor
             ~Company() = default;
 
-            EscapeRoomWrapper& getRoom(const EscapeRoomWrapper& room);
-
             string getName() const;
 
             string getNumber() const;
+
+            set<EscapeRoomWrapper*>::iterator getRoom(const
+                                                       EscapeRoomWrapper& room);
         };
 
         std::ostream& operator<<(std::ostream& output, const Company& company);

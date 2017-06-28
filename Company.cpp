@@ -7,7 +7,7 @@ using std::ostream;
 using std::endl;
 
 Company::Company(string name, string phoneNumber):name(name),
-                                                  number(phoneNumber){}
+                                                  number(phoneNumber),escape_rooms(){}
 
 Company::Company(const Company& company) : name(company.name) ,
                                            number(company.number) ,
@@ -26,8 +26,9 @@ Company& Company::operator=(const Company& company){
 void Company::createRoom(char* name, const int& escapeTime, const int& level,
                 const int& maxParticipants){
     try {
-        EscapeRoomWrapper escape_room(name, escapeTime, level, maxParticipants);
-        this->escape_rooms.insert(&escape_room);
+        EscapeRoomWrapper* escape_room = new EscapeRoomWrapper(name,escapeTime,
+        level,maxParticipants);
+        this->escape_rooms.insert(escape_room);
     }
     catch(...){
         throw CompanyMemoryProblemException();
@@ -38,9 +39,9 @@ void Company::createScaryRoom(char* name, const int& escapeTime,
                               const int& level, const int& maxParticipants,
                               const int& ageLimit,const int& numOfScaryEnigmas){
     try{
-        ScaryRoom escape_room(name,escapeTime,level,maxParticipants,ageLimit,
+        ScaryRoom *escape_room = new ScaryRoom(name,escapeTime,level,maxParticipants,ageLimit,
                               numOfScaryEnigmas);
-        this->escape_rooms.insert(&escape_room);
+        this->escape_rooms.insert((EscapeRoomWrapper*)escape_room);
     }
     catch (...){
         throw CompanyMemoryProblemException();
@@ -50,8 +51,9 @@ void Company::createScaryRoom(char* name, const int& escapeTime,
 void Company::createKidsRoom(char* name,const int& escapeTime, const int& level,
                     const int& maxParticipants, const int& ageLimit){
     try{
-        KidsRoom escape_room(name,escapeTime,level,maxParticipants,ageLimit);
-        this->escape_rooms.insert(&escape_room);
+        KidsRoom *escape_room= new KidsRoom(name,escapeTime,level,
+                                            maxParticipants,ageLimit);
+        this->escape_rooms.insert((EscapeRoomWrapper*)escape_room);
     }
     catch (...){
         throw CompanyMemoryProblemException();
@@ -63,18 +65,21 @@ set<EscapeRoomWrapper*> Company::getAllRooms() const{
 }
 
 void Company::removeRoom(const EscapeRoomWrapper& room){
-    EscapeRoomWrapper room_to_find = room;
+   // EscapeRoomWrapper room_to_find = room;
+    /*
     set<EscapeRoomWrapper*>::iterator i =this->escape_rooms.find(&room_to_find);
     if(i == this->escape_rooms.end()){
         throw CompanyRoomNotFoundException();
     }
-    this->escape_rooms.erase(i);
+     */
+    this->escape_rooms.erase(this->getRoom(room));
 }
-
+/*
 void Company::addEnigma(const EscapeRoomWrapper& room, const Enigma& enigma){
     this->getRoom(room).addEnigma(enigma);
 }
-
+*/
+/*
 void Company::removeEnigma(const EscapeRoomWrapper& room, const Enigma& enigma){
     try{
         this->getRoom(room).removeEnigma(enigma);
@@ -87,7 +92,8 @@ void Company::removeEnigma(const EscapeRoomWrapper& room, const Enigma& enigma){
     }
 }
 
-
+*/
+/*
 void Company::addItem(const EscapeRoomWrapper& room, const Enigma& enigma,
              const string& element){
     try {
@@ -97,7 +103,8 @@ void Company::addItem(const EscapeRoomWrapper& room, const Enigma& enigma,
         throw CompanyRoomEnigmaNotFoundException();
     }
 }
-
+*/
+/*
 void Company::removeItem(const EscapeRoomWrapper& room, const Enigma& enigma,
                 const string& element){
     try{
@@ -113,7 +120,7 @@ void Company::removeItem(const EscapeRoomWrapper& room, const Enigma& enigma,
         throw CompanyRoomEnigmaNotFoundException();
     }
 }
-
+*/
 set<EscapeRoomWrapper*> Company::getAllRoomsByType(RoomType type) const{
     set<EscapeRoomWrapper*> temp_set;
     for(set<EscapeRoomWrapper*>::iterator i = this->escape_rooms.begin() ;
@@ -146,13 +153,20 @@ std::ostream& mtm::escaperoom::operator<<(std::ostream& output, const Company& c
 }
 
 
-EscapeRoomWrapper& Company::getRoom(const EscapeRoomWrapper& room){
-    EscapeRoomWrapper room_to_find = room;
-    set<EscapeRoomWrapper*>::iterator i =this->escape_rooms.find(&room_to_find);
+set<EscapeRoomWrapper*>::iterator Company::getRoom(const EscapeRoomWrapper& room){
+    for(set<EscapeRoomWrapper*>::iterator i=this->escape_rooms.begin();
+            i!=this->escape_rooms.end();++i){
+        if(**i==room){
+            return i;
+        }
+    }
+    /*set<EscapeRoomWrapper*>::iterator i =this->escape_rooms.find(&room_to_find);
     if(i == this->escape_rooms.end()){
         throw CompanyRoomNotFoundException();
     }
     return *(*i);
+     */
+    throw CompanyRoomNotFoundException();
 }
 
 string Company::getName() const{
