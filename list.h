@@ -106,7 +106,7 @@ public:
         Iterator operator--(){
             //if --for list.end
             if(*this==(this->list->end())){
-                *this=this->list->end();
+                this->current=this->list->finish;
                 return *this;
             }
             //if --for list.begin- undefiend
@@ -131,7 +131,7 @@ public:
       * @param iterator to be checked to
       */
         bool operator==(const Iterator& iterator) const{
-            return (this->list==iterator.list &&
+            return ((this->list==iterator.list) &&
                     this->current==iterator.current);
         }
         /** Operator!=  for iterator

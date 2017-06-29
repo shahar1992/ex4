@@ -1,5 +1,6 @@
 #include <functional>
 #include "../list.h"
+#include "../Exceptions.h"
 #include "../mtmtest.h"
 #include <string>
 
@@ -17,71 +18,50 @@ public:
 };
 
 
-static void listCotAndDor(){
+static void IteratorTests(){
     using std::string;
-    List<string> list;
+    using mtm::ListExceptions::ElementNotFound;
+    List<unsigned int > list;
     list.begin();
-    list.insert("Welcome", list.end());
-    //list.insert("To", list.end());
-    //list.insert("The", list.end());
-/**
-    int counter = 1;
-    for (List<int>::Iterator it = list.begin(); it != list.end(); ++it) {
-        ASSERT_EQUALS(counter++, *it);
+    list.insert(1, list.end());
+    list.insert(2, list.end());
+    list.insert(3, list.end());
+    list.insert(4, list.end());
+    List<unsigned int >::Iterator it=list.begin();
+    unsigned int counter=1;
+    /** ------------------Move forward on list----------------------------- */
+    for(;it!=list.end();it++){
+        ASSERT_TRUE((*(it))==counter);
+        counter++;
     }
-
-    // C++11 syntactic sugar Range-based for-loop
-    counter = 1;
-    for (int& element : list) {
-        ASSERT_EQUALS(counter++, element);
-    }
-
-    List<int>::Iterator it = list.begin();
-    ASSERT_EQUALS(3, list.getSize());
-    list.remove(++it);
-    it = list.begin();
-    ASSERT_EQUALS(*it, 1);
-    list.insert(4, list.begin());
-    list.insert(2, list.begin());
-
-
-    // std::less<int> is a function object defined in <functional>
-    // it simply calls operator< of the type compared
-    list.sort(std::less<int>()); // 2,4,1,3
-    it = list.begin();
-    ASSERT_EQUALS(1, *it);
-
-    it = list.find(EqualTo(3));
-    ASSERT_EQUALS(3, *it);
-    *it = 3;
-
-
-    // The following insert should add to end of list
-    list.insert(5);
-
-    const List<int> list2(list);
-    ASSERT_TRUE(list == list2);
-    ASSERT_FALSE(list != list2);
-
-    //test directions
-    it = list.begin();
-    it++;
-    ASSERT_EQUALS(2, *it);
-    ++it;
-    ASSERT_EQUALS(3, *it);
-    it--;
-    ASSERT_EQUALS(2, *it);
-    it++;
-    it++;
-    ASSERT_EQUALS(4, *it);
+    /** ------------------end Dereffrence exception-------------------------- */
+    ASSERT_THROWS(mtm::ListExceptions::ElementNotFound,(*it));
     --it;
-    ASSERT_EQUALS(3, *it);
-
-**/
+    counter=4;
+    /** ------------------Move backwards on list----------------------------- */
+    for (;it!=(--(list.begin())); it--){
+        ASSERT_TRUE((*(it))==counter);
+        counter--;
+    }
+    List<unsigned int > list2;
+    list2.begin();
+    list2.insert(1, list2.end());
+    list2.insert(2, list2.end());
+    list2.insert(3, list2.end());
+    list2.insert(4, list2.end());
+    List<unsigned int>::Iterator it2=list2.begin();
+    /** ------------------check iterator == operator ---------------------------- */
+    ASSERT_TRUE(it!=it2);
+    ASSERT_TRUE(it2!=it);
+    ASSERT_FALSE(it==it2);
+    ASSERT_FALSE(it2==it);
+    List<unsigned int>::Iterator it3=it;
+    ASSERT_TRUE(it==it3);
+    ASSERT_FALSE(it3==it2);
 }
 
 
 int main() {
-    RUN_TEST(listCotAndDor);
+    RUN_TEST(IteratorTests);
     return 0;
 }
